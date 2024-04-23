@@ -6,3 +6,8 @@ sky:
     database: Graduation-project-takeaway-system
     username: root
     password: Xu0638177882
+  alioss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    access-key-id: LTAI5tFnPkoiVArrLdhbRhwM
+    access-key-secret: xizqA3STRkVhk10iWTqBJZarwpWks8
+    bucket-name: takeawaysystem
