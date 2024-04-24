@@ -35,4 +35,7 @@ public interface DishMapper {
     //根据主键来删除菜品信息
     @Delete("delete from dish where id = #{id}")
     void deleteBbyId(Long id);
+    //跟新菜品信息
+    @AutoFill(OperationType.UPDATE)
+    void update(Dish dish);
 }
