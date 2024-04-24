@@ -1,5 +1,6 @@
 package com.sky.controller.admin;
 
+import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
@@ -59,6 +60,14 @@ public class SetmealController {
     public Result update(@RequestBody SetmealDTO setmealDTO){
         log.info("更新套餐:{}",setmealDTO);
         setmealService.updateDish(setmealDTO);
+        return Result.success();
+    }
+    //启用或停用套餐
+    @PostMapping("/status/{status}")
+    @ApiOperation("起售和禁套餐")
+    public Result dealWithStatus(@PathVariable Integer status , Long id){
+        log.info("修改套餐状态{}",status == StatusConstant.ENABLE ? "ON" : "OFF");
+        setmealService.startAndStop(status,id);
         return Result.success();
     }
 }

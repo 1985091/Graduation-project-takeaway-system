@@ -9,6 +9,7 @@ import java.util.List;
 
 //新增套餐，保持套餐和菜品之间的联系
 public interface SetmealService {
+
     void saveWithDish(SetmealDTO setmealDTO);
     //套餐分页查询
     PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
@@ -18,4 +19,6 @@ public interface SetmealService {
     SetmealVO getId(Long id);
     //更新套餐
     void updateDish(SetmealDTO setmealDTO);
+    //起售或停售
+    void startAndStop(Integer status, Long id);
 }

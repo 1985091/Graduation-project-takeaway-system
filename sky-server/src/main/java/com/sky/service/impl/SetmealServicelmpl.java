@@ -6,9 +6,11 @@ import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
+import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
@@ -31,6 +33,29 @@ public class SetmealServicelmpl implements SetmealService {
     private SetmealMapper setmealMapper;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private DishMapper dishMapper;
+
+    //起售和停售
+    @Override
+    public void startAndStop(Integer status, Long id) {
+        if(Objects.equals(status, StatusConstant.ENABLE)){
+            //查看套餐对应菜品是否处于启售状态
+            List<SetmealDish> setmealDishes = setmealDishMapper.getDishesSetmealId(id);
+            // TODO: 2023/12/23 找机会把循环sql的代码优化了
+            // TODO: 2023/12/23 修改套餐内容的时候,如果添加了新的菜品,但是没有启售,那么套餐是否应该也设置为停售状态?还是统一在修改之后均设置成停售状态?
+            for(SetmealDish setmealDish : setmealDishes){
+                if(dishMapper.getById(setmealDish.getDishId()).getStatus().equals(StatusConstant.DISABLE)){
+                    throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ENABLE_FAILED);
+                }
+            }
+
+        }
+        //封装套餐对象,修改状态
+        Setmeal setmeal = Setmeal.builder().id(id).status(status).build();
+        setmealMapper.update(setmeal);
+    }
+
     @Transactional
     @Override
     public void saveWithDish(SetmealDTO setmealDTO) {

@@ -71,4 +71,11 @@ public class DishController {
         List<Dish> dishList = dishService.listCategoryId(categoryId);
         return Result.success(dishList);
     }
+    //起售和停售菜品
+    @PostMapping("/status/{status}")
+    @ApiOperation("起售和禁售菜品")
+    public Result checkstatus(@PathVariable Integer status,Long id){
+        dishService.startAndStop(status,id);
+        return Result.success();
+    }
 }

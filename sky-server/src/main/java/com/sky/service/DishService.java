@@ -23,4 +23,6 @@ public interface DishService {
     void updateFlavor(DishDTO dishDTO);
     // 根据分类id查询菜品
     List<Dish> listCategoryId(Long categoryId);
+    //菜品起售和停售
+    void startAndStop(Integer status, Long id);
 }

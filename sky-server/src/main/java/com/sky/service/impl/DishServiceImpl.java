@@ -119,6 +119,10 @@ public class DishServiceImpl implements DishService {
     public List<Dish> listCategoryId(Long categoryId) {
         return dishMapper.listCategoryId(categoryId);
     }
-    //修改菜品
-
+    //菜品起售和停售
+    @Override
+    public void startAndStop(Integer status, Long id) {
+        Dish dish1 = Dish.builder().status(status).id(id).build();
+        dishMapper.update(dish1);
+    }
 }
