@@ -1,4 +1,4 @@
-package com.sky.controller.admin;
+package com.sky.controller.user;
 
 import com.sky.constant.ShopStatusConstant;
 import com.sky.result.Result;
@@ -7,24 +7,18 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin/shop")
-@Api(tags = "店铺状态接口")
+@RequestMapping("/user/shop")
+@Api(tags = "客户端店铺状态接口")
 @Slf4j
-public class shopManagerController {
+public class shopUserController {
     @Autowired
     private RedisTemplate redisTemplate;
-    //设置店铺营业状态
-    @PutMapping("/{status}")
-    @ApiOperation("设置营业状态")
-    public Result changeStatus(@PathVariable Integer status){
-        log.info("设置营业状态为:{}",status == ShopStatusConstant.ENABLE ? "营业中" : "打烊中");
-        redisTemplate.opsForValue().set(ShopStatusConstant.SHOP_STATUS_KEY,status);
-        return Result.success();
-    }
-
     //查询店铺状态
     @GetMapping("/status")
     @ApiOperation("获取商铺营业状态")
