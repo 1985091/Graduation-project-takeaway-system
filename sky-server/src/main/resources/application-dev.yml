@@ -11,3 +11,7 @@ sky:
     access-key-id: LTAI5tFnPkoiVArrLdhbRhwM
     access-key-secret: xizqA3STRkVhk10iWTqBJZarwpWks8
     bucket-name: takeawaysystem
+  redis:
+    host: localhost
+    port: 6379
+    database: 1
