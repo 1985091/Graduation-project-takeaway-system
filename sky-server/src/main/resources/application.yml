@@ -42,8 +42,17 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+    # 设置微信jwt签名加密时使用的秘钥
+    user-secret-key: xuhao
+    # 设置微信jwt过期时间
+    user-ttl: 7200000
+    # 设置微信前端传递过来的令牌名称
+    user-token-name: authorization
   alioss:
     endpoint: ${alioss.endpoint}
     access-key-id: ${alioss.access-key-id}
     access-key-secret: ${alioss.access-key-secret}
     bucket-name: ${alioss.bucket-name}
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
