@@ -23,12 +23,8 @@ public class SetmealController {
     @Autowired
     private SetmealService setmealService;
 
-    /**
-     * 条件查询
-     *
-     * @param categoryId
-     * @return
-     */
+    //条件查询
+
     @GetMapping("/list")
     @ApiOperation("根据分类id查询套餐")
     @Cacheable(cacheNames = "setmealCache", key = "#categoryId") // 动态算出 key
@@ -41,12 +37,8 @@ public class SetmealController {
         return Result.success(list);
     }
 
-    /**
-     * 根据套餐id查询包含的菜品列表
-     *
-     * @param id
-     * @return
-     */
+    // 根据套餐id查询包含的菜品列表
+
     @GetMapping("/dish/{id}")
     @ApiOperation("根据套餐id查询包含的菜品列表")
     public Result<List<DishItemVO>> dishList(@PathVariable("id") Long id) {
