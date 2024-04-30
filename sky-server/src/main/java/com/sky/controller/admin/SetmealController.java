@@ -12,6 +12,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class SetmealController {
     private SetmealService setmealService;
     @PostMapping
     @ApiOperation("新增套餐")
+    @CacheEvict(cacheNames = "setmealCache" , key = "#setmealDTO.categoryId") //精确清理缓存
     public Result save(@RequestBody SetmealDTO setmealDTO){
         log.info("新增套餐:{}",setmealDTO);
         setmealService.saveWithDish(setmealDTO);
@@ -41,6 +44,7 @@ public class SetmealController {
     //删除套餐
     @DeleteMapping
     @ApiOperation("删除套餐")
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true)//模糊清理所有缓存数据
     public Result delete(@RequestParam List<Long> ids){
         log.info("删除套餐:{}",ids);
         setmealService.deleteBatch(ids);
@@ -49,6 +53,7 @@ public class SetmealController {
     //修改套餐中根据id查询具体套餐
     @GetMapping("/{id}")
     @ApiOperation("根据id查询套餐")
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true)//模糊清理所有缓存数据
     public Result<SetmealVO> getId(@PathVariable Long id){
         log.info("根据id查询套餐:{}",id);
         SetmealVO setmealVO = setmealService.getId(id);
@@ -57,6 +62,7 @@ public class SetmealController {
     //修改套餐
     @PutMapping
     @ApiOperation("修改套餐")
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true)//模糊清理所有缓存数据
     public Result update(@RequestBody SetmealDTO setmealDTO){
         log.info("更新套餐:{}",setmealDTO);
         setmealService.updateDish(setmealDTO);
@@ -65,6 +71,7 @@ public class SetmealController {
     //启用或停用套餐
     @PostMapping("/status/{status}")
     @ApiOperation("起售和禁套餐")
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true)//模糊清理所有缓存数据
     public Result dealWithStatus(@PathVariable Integer status , Long id){
         log.info("修改套餐状态{}",status == StatusConstant.ENABLE ? "ON" : "OFF");
         setmealService.startAndStop(status,id);
