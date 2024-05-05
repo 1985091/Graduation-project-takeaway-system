@@ -18,3 +18,10 @@ sky:
   wechat:
     appid: wxe4ac5dc4e61d08fb
     secret: adcea76b256a0a5fc01122480a9d5226
+    my-shop-id: your_dev_myShopId
+    mch-serial-no: your_dev_mch_serial_no
+    private-key-file-path: /path/to/your/dev/private-key-file.pem
+    api-v3-key: your_dev_api_v3_key
+    we-chat-pay-cert-file-path: /path/to/your/dev/we-chat-pay-cert-file.pem
+    notify-url: https://localhost:8080/notice/paySuccess
+    refund-notify-url: https://localhost:8080/notice/refundSuccess

@@ -29,9 +29,8 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
-/**
- * 微信支付工具类
- */
+//微信支付工具类
+
 @Component
 public class WeChatPayUtil {
 
@@ -44,11 +43,8 @@ public class WeChatPayUtil {
     @Autowired
     private WeChatProperties weChatProperties;
 
-    /**
-     * 获取调用微信接口的客户端工具对象
-     *
-     * @return
-     */
+    //获取调用微信接口的客户端工具对象
+
     private CloseableHttpClient getClient() {
         PrivateKey merchantPrivateKey = null;
         try {
@@ -60,7 +56,7 @@ public class WeChatPayUtil {
             List<X509Certificate> wechatPayCertificates = Arrays.asList(x509Certificate);
 
             WechatPayHttpClientBuilder builder = WechatPayHttpClientBuilder.create()
-                    .withMerchant(weChatProperties.getMchid(), weChatProperties.getMchSerialNo(), merchantPrivateKey)
+                    .withMerchant(weChatProperties.getMyShopId(), weChatProperties.getMchSerialNo(), merchantPrivateKey)
                     .withWechatPay(wechatPayCertificates);
 
             // 通过WechatPayHttpClientBuilder构造的HttpClient，会自动的处理签名和验签
@@ -72,13 +68,9 @@ public class WeChatPayUtil {
         }
     }
 
-    /**
-     * 发送post方式请求
-     *
-     * @param url
-     * @param body
-     * @return
-     */
+    // 发送post方式请求
+
+
     private String post(String url, String body) throws Exception {
         CloseableHttpClient httpClient = getClient();
 
@@ -98,12 +90,8 @@ public class WeChatPayUtil {
         }
     }
 
-    /**
-     * 发送get方式请求
-     *
-     * @param url
-     * @return
-     */
+    // 发送get方式请求
+
     private String get(String url) throws Exception {
         CloseableHttpClient httpClient = getClient();
 
@@ -122,19 +110,19 @@ public class WeChatPayUtil {
         }
     }
 
-    /**
-     * jsapi下单
-     *
-     * @param orderNum    商户订单号
-     * @param total       总金额
-     * @param description 商品描述
-     * @param openid      微信用户的openid
-     * @return
-     */
+//    /**
+//     * jsapi下单
+//     *
+//     * @param orderNum    商户订单号
+//     * @param total       总金额
+//     * @param description 商品描述
+//     * @param openid      微信用户的openid
+//     * @return
+//     */
     private String jsapi(String orderNum, BigDecimal total, String description, String openid) throws Exception {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("appid", weChatProperties.getAppid());
-        jsonObject.put("mchid", weChatProperties.getMchid());
+        jsonObject.put("mchid", weChatProperties.getMyShopId());
         jsonObject.put("description", description);
         jsonObject.put("out_trade_no", orderNum);
         jsonObject.put("notify_url", weChatProperties.getNotifyUrl());
@@ -154,15 +142,15 @@ public class WeChatPayUtil {
         return post(JSAPI, body);
     }
 
-    /**
-     * 小程序支付
-     *
-     * @param orderNum    商户订单号
-     * @param total       金额，单位 元
-     * @param description 商品描述
-     * @param openid      微信用户的openid
-     * @return
-     */
+//    /**
+//     * 小程序支付
+//     *
+//     * @param orderNum    商户订单号
+//     * @param total       金额，单位 元
+//     * @param description 商品描述
+//     * @param openid      微信用户的openid
+//     * @return
+//     */
     public JSONObject pay(String orderNum, BigDecimal total, String description, String openid) throws Exception {
         //统一下单，生成预支付交易单
         String bodyAsString = jsapi(orderNum, total, description, openid);
@@ -205,15 +193,15 @@ public class WeChatPayUtil {
         return jsonObject;
     }
 
-    /**
-     * 申请退款
-     *
-     * @param outTradeNo    商户订单号
-     * @param outRefundNo   商户退款单号
-     * @param refund        退款金额
-     * @param total         原订单金额
-     * @return
-     */
+//    /**
+//     * 申请退款
+//     *
+//     * @param outTradeNo    商户订单号
+//     * @param outRefundNo   商户退款单号
+//     * @param refund        退款金额
+//     * @param total         原订单金额
+//     * @return
+//     */
     public String refund(String outTradeNo, String outRefundNo, BigDecimal refund, BigDecimal total) throws Exception {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("out_trade_no", outTradeNo);
