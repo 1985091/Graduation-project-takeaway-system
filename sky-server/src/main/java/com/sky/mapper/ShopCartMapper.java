@@ -23,4 +23,6 @@ public interface ShopCartMapper {
     void deleteByUerId(Long userId);
     @Delete("delete from shopping_cart where id = #{id}")
     void deleteById(ShoppingCart cart2);
+    //数据插入购物车
+    void insertCart(List<ShoppingCart> shoppingCartList);
 }
