@@ -20,7 +20,7 @@ import java.util.HashMap;
 // 支付回调相关接口
 
 @RestController
-@RequestMapping("/notice")
+@RequestMapping("/notify")
 @Slf4j
 public class PayNoticeController {
     @Autowired

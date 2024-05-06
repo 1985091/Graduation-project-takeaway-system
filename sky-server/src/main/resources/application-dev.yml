@@ -23,5 +23,5 @@ sky:
     private-key-file-path: /path/to/your/dev/private-key-file.pem
     api-v3-key: your_dev_api_v3_key
     we-chat-pay-cert-file-path: /path/to/your/dev/we-chat-pay-cert-file.pem
-    notify-url: https://localhost:8080/notice/paySuccess
-    refund-notify-url: https://localhost:8080/notice/refundSuccess
+    notify-url: https://21584c5c.r11.cpolar.top/notify/paySuccess
+    refund-notify-url: https://21584c5c.r11.cpolar.top/notify/refundSuccess
