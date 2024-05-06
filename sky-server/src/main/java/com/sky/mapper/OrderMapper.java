@@ -6,6 +6,8 @@ import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 @Mapper
 public interface OrderMapper {
     // 插入数据
@@ -26,4 +28,6 @@ public interface OrderMapper {
     //订单统计
     @Select("select count(id) from orders where status = #{status}")
     Integer countByStatus(Integer toBeConfirmed);
+    // 计算当天营业额的合计
+    Double sumByMap(Map map);
 }
